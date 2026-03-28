@@ -1,0 +1,128 @@
+{
+  "version": "1.0",
+  "description": "CEIEF Cultural Knowledge Graph Relation Schema",
+  "relation_types": [
+    {
+      "relation_id": "embodies",
+      "label": "embodies",
+      "label_zh": "体现",
+      "description": "The subject event/practice embodies or expresses the object cultural concept or value",
+      "domain": ["event_practice", "cultural_concept"],
+      "range": ["cultural_concept", "value_orientation"],
+      "example": "(端午节, embodies, 集体记忆)",
+      "inverse": "is_embodied_by"
+    },
+    {
+      "relation_id": "commemorates",
+      "label": "commemorates",
+      "label_zh": "纪念",
+      "description": "The subject event commemorates or honors the object historical actor or event",
+      "domain": ["event_practice"],
+      "range": ["historical_actor", "event_practice"],
+      "example": "(端午节, commemorates, 屈原)",
+      "inverse": "is_commemorated_by"
+    },
+    {
+      "relation_id": "belongs_to",
+      "label": "belongs_to",
+      "label_zh": "属于",
+      "description": "The subject entity belongs to or is a member of the object category or group",
+      "domain": ["event_practice", "cultural_concept"],
+      "range": ["cultural_concept", "event_practice", "spatiotemporal_context"],
+      "example": "(祭祖, belongs_to, 家族仪式)",
+      "inverse": "includes"
+    },
+    {
+      "relation_id": "contrasts_with",
+      "label": "contrasts_with",
+      "label_zh": "对比于",
+      "description": "The subject stands in contrast or tension with the object, highlighting cultural differences",
+      "domain": ["cultural_concept", "event_practice", "value_orientation"],
+      "range": ["cultural_concept", "event_practice", "value_orientation"],
+      "example": "(传统仪式, contrasts_with, 现代庆典形式)",
+      "symmetric": true
+    },
+    {
+      "relation_id": "transfers_to",
+      "label": "transfers_to",
+      "label_zh": "迁移至",
+      "description": "The subject concept or practice transfers its meaning or function to the object in a different context",
+      "domain": ["cultural_concept", "value_orientation"],
+      "range": ["cultural_concept", "value_orientation", "event_practice"],
+      "example": "(集体记忆, transfers_to, 社区认同)",
+      "inverse": "is_transferred_from"
+    },
+    {
+      "relation_id": "interprets",
+      "label": "interprets",
+      "label_zh": "解释",
+      "description": "The subject concept or practice provides an interpretive lens for understanding the object",
+      "domain": ["cultural_concept", "event_practice"],
+      "range": ["cultural_concept", "value_orientation", "event_practice"],
+      "example": "(礼仪, interprets, 社会等级秩序)",
+      "inverse": "is_interpreted_by"
+    },
+    {
+      "relation_id": "originated_in",
+      "label": "originated_in",
+      "label_zh": "起源于",
+      "description": "The subject practice or concept originated in the object spatiotemporal context",
+      "domain": ["event_practice", "cultural_concept"],
+      "range": ["spatiotemporal_context", "historical_actor"],
+      "example": "(端午节, originated_in, 战国时期)"
+    },
+    {
+      "relation_id": "practiced_by",
+      "label": "practiced_by",
+      "label_zh": "由...实践",
+      "description": "The subject event/practice is carried out by the object historical actor or group",
+      "domain": ["event_practice"],
+      "range": ["historical_actor"],
+      "example": "(祭祖, practiced_by, 家族成员)",
+      "inverse": "practices"
+    },
+    {
+      "relation_id": "associated_with",
+      "label": "associated_with",
+      "label_zh": "关联于",
+      "description": "General association between two entities sharing cultural significance",
+      "domain": ["cultural_concept", "event_practice", "historical_actor", "value_orientation"],
+      "range": ["cultural_concept", "event_practice", "historical_actor", "value_orientation"],
+      "example": "(龙舟, associated_with, 端午节)",
+      "symmetric": true
+    },
+    {
+      "relation_id": "reinforces",
+      "label": "reinforces",
+      "label_zh": "强化",
+      "description": "The subject practice or concept reinforces or strengthens the object value or concept",
+      "domain": ["event_practice", "cultural_concept"],
+      "range": ["value_orientation", "cultural_concept"],
+      "example": "(祭祖, reinforces, 孝道)"
+    },
+    {
+      "relation_id": "challenges",
+      "label": "challenges",
+      "label_zh": "挑战",
+      "description": "The subject practice, concept, or actor challenges or critiques the object value or norm",
+      "domain": ["event_practice", "cultural_concept", "historical_actor"],
+      "range": ["value_orientation", "cultural_concept"],
+      "example": "(现代化, challenges, 传统礼仪)"
+    },
+    {
+      "relation_id": "occurs_in",
+      "label": "occurs_in",
+      "label_zh": "发生于",
+      "description": "The subject event/practice occurs within the object spatiotemporal context",
+      "domain": ["event_practice"],
+      "range": ["spatiotemporal_context"],
+      "example": "(成人礼, occurs_in, 现代校园)"
+    }
+  ],
+  "constraints": {
+    "self_loops_allowed": false,
+    "max_weight": 1.0,
+    "min_weight": 0.0,
+    "weight_description": "Strength of relation: 1.0=canonical, 0.5=moderate, 0.1=weak/contested"
+  }
+}

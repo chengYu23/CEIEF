@@ -1,0 +1,79 @@
+# ============================================================
+# CEIEF .gitignore
+# ============================================================
+
+# Environment & secrets
+.env
+.env.local
+config.local.yaml
+LLM信息.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# IDEs
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs (keep structure but ignore content)
+logs/raw_dialogues/*.json
+logs/controller_actions/*.json
+logs/retrieval_logs/*.json
+logs/scoring_outputs/*.json
+logs/scoring_outputs/*.csv
+
+# Keep .gitkeep files
+!logs/**/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Test & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Large model files
+*.bin
+*.pt
+*.ckpt
+*.pkl
+
+# Temp files
+*.tmp
+*.bak

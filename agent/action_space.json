@@ -1,0 +1,157 @@
+{
+  "version": "1.0",
+  "description": "CEIEF Agent Action Space Definition",
+  "total_actions": 7,
+  "actions": [
+    {
+      "action_id": "evidence_expansion",
+      "label": "Evidence Expansion",
+      "label_zh": "证据扩展",
+      "description": "Expand cultural explanation with specific knowledge graph evidence and historical references",
+      "trigger_conditions": [
+        "learner asks why or how questions",
+        "response lacks specific cultural evidence",
+        "explanation is too abstract"
+      ],
+      "prompt_template": "Use at least two specific cultural facts or historical references from the retrieved knowledge graph evidence. Expand the explanation by linking the evidence to broader cultural patterns. Show the chain of cultural reasoning explicitly.",
+      "expected_response_features": [
+        "minimum 2 specific cultural references",
+        "explicit logical connections",
+        "historical grounding",
+        "evidence-to-interpretation progression"
+      ],
+      "compatible_roles": ["museum_guide", "cultural_teacher", "historical_interpreter", "value_mediator"],
+      "priority_weight": 0.85
+    },
+    {
+      "action_id": "role_anchoring",
+      "label": "Role Anchoring",
+      "label_zh": "角色锚定",
+      "description": "Re-establish the cultural role perspective and ensure response consistency with assigned role",
+      "trigger_conditions": [
+        "response drifts from role perspective",
+        "learner challenges the role framing",
+        "dialogue loses cultural focus"
+      ],
+      "prompt_template": "Re-establish your role perspective clearly before answering. Remind the learner of your cultural position and the historical context you are speaking from. Ensure your response reflects the specific cultural lens of your assigned role.",
+      "expected_response_features": [
+        "explicit role identification",
+        "consistent cultural perspective",
+        "role-appropriate language register"
+      ],
+      "compatible_roles": ["museum_guide", "cultural_teacher", "historical_interpreter", "value_mediator"],
+      "priority_weight": 0.75
+    },
+    {
+      "action_id": "perspective_contrast",
+      "label": "Perspective Contrast",
+      "label_zh": "视角对比",
+      "description": "Present multiple contrasting cultural perspectives to deepen comparative understanding",
+      "trigger_conditions": [
+        "learner requests comparison",
+        "topic involves value tensions",
+        "task family is norm_comparison or value_conflict_mediation"
+      ],
+      "prompt_template": "Present at least two contrasting cultural perspectives or interpretations of this topic. Use comparative language (e.g., 'In contrast...', 'While some traditions...', 'However...'). Acknowledge tensions or value differences respectfully.",
+      "expected_response_features": [
+        "two or more distinct perspectives",
+        "comparative language markers",
+        "balanced presentation",
+        "identification of common ground"
+      ],
+      "compatible_roles": ["value_mediator", "cultural_teacher", "historical_interpreter"],
+      "priority_weight": 0.80
+    },
+    {
+      "action_id": "reflective_prompting",
+      "label": "Reflective Prompting",
+      "label_zh": "反思性追问",
+      "description": "Invite deeper learner reflection through open-ended culturally grounded questions",
+      "trigger_conditions": [
+        "learner demonstrates basic understanding",
+        "dialogue depth is sufficient",
+        "topic has contemporary relevance",
+        "learner expresses reflection"
+      ],
+      "prompt_template": "After your main response, include one open-ended reflective question that invites the learner to think more deeply about the cultural implications. The question should be grounded in the retrieved evidence and culturally grounded. Example: 'One way to think further about this is to ask whether this practice still carries the same meaning today as it did in its original context.'",
+      "expected_response_features": [
+        "main response followed by reflective question",
+        "question is genuinely open-ended",
+        "question connects to cultural content",
+        "encourages personal reflection"
+      ],
+      "compatible_roles": ["cultural_teacher", "value_mediator", "historical_interpreter"],
+      "priority_weight": 0.70
+    },
+    {
+      "action_id": "clarification",
+      "label": "Clarification",
+      "label_zh": "澄清",
+      "description": "Simplify and clarify complex cultural concepts for confused learners",
+      "trigger_conditions": [
+        "learner expresses confusion",
+        "learner asks for clarification",
+        "confusion_level is HIGH",
+        "learner uses short unclear inputs"
+      ],
+      "prompt_template": "Simplify your explanation by breaking it into 2-3 clear points. Define any technical cultural terms before using them. Use concrete, relatable examples to anchor abstract concepts. Check for understanding at the end.",
+      "expected_response_features": [
+        "2-3 clear numbered points",
+        "term definitions included",
+        "concrete everyday example",
+        "understanding check question"
+      ],
+      "compatible_roles": ["museum_guide", "cultural_teacher", "value_mediator"],
+      "priority_weight": 0.90
+    },
+    {
+      "action_id": "simplification",
+      "label": "Simplification",
+      "label_zh": "简化",
+      "description": "Provide a concise, accessible summary of the core cultural insight",
+      "trigger_conditions": [
+        "confusion_level is HIGH",
+        "previous response was too long or complex",
+        "learner needs quick reference"
+      ],
+      "prompt_template": "Provide a concise summary (3-4 sentences) focusing on the most essential cultural insight. Avoid complex terminology. Use plain language while preserving cultural accuracy.",
+      "expected_response_features": [
+        "3-4 sentences maximum",
+        "no unexplained technical terms",
+        "preserves core cultural accuracy",
+        "accessible language"
+      ],
+      "compatible_roles": ["museum_guide", "cultural_teacher"],
+      "priority_weight": 0.85
+    },
+    {
+      "action_id": "summary_closure",
+      "label": "Summary Closure",
+      "label_zh": "阶段性总结",
+      "description": "Provide a milestone summary of key cultural insights and invite reflection on learning progress",
+      "trigger_conditions": [
+        "dialogue depth reaches 10+ turns",
+        "topic shift is about to occur",
+        "learner requests review"
+      ],
+      "prompt_template": "Provide a brief summary of the key cultural insights discussed so far in this dialogue. Highlight the main cultural concepts encountered and the connections made. Invite the learner to reflect on what they have learned.",
+      "expected_response_features": [
+        "summary of 2-4 key concepts",
+        "explicit connections between concepts",
+        "invitation for learner reflection",
+        "forward-looking closing statement"
+      ],
+      "compatible_roles": ["cultural_teacher", "museum_guide", "historical_interpreter", "value_mediator"],
+      "priority_weight": 0.65
+    }
+  ],
+  "action_prompt_map": {
+    "evidence_expansion": "Use at least two specific cultural facts or historical references from the retrieved knowledge graph evidence. Expand the explanation by linking the evidence to broader cultural patterns. Show the chain of cultural reasoning explicitly.",
+    "role_anchoring": "Re-establish your role perspective clearly before answering. Remind the learner of your cultural position and the historical context you are speaking from. Ensure your response reflects the specific cultural lens of your assigned role.",
+    "perspective_contrast": "Present at least two contrasting cultural perspectives or interpretations of this topic. Use comparative language (e.g., 'In contrast...', 'While some traditions...', 'However...'). Acknowledge tensions or value differences respectfully.",
+    "reflective_prompting": "After your main response, include one open-ended reflective question that invites the learner to think more deeply about the cultural implications. The question should be grounded in the retrieved evidence and culturally grounded.",
+    "clarification": "Simplify your explanation by breaking it into 2-3 clear points. Define any technical cultural terms before using them. Use concrete, relatable examples to anchor abstract concepts. Check for understanding at the end.",
+    "simplification": "Provide a concise summary (3-4 sentences) focusing on the most essential cultural insight. Avoid complex terminology. Use plain language while preserving cultural accuracy.",
+    "summary_closure": "Provide a brief summary of the key cultural insights discussed so far in this dialogue. Highlight the main cultural concepts encountered and the connections made. Invite the learner to reflect on what they have learned."
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "description": "CEIEF Cultural Knowledge Graph Entity Schema",
+  "entity_types": [
+    {
+      "type_id": "cultural_concept",
+      "label": "Cultural Concept",
+      "label_zh": "文化概念",
+      "description": "A core cultural theme, idea, or unit of meaning within a cultural tradition",
+      "examples": ["孝道", "礼仪", "集体记忆", "待客之道", "面子", "和谐"],
+      "required_fields": ["name", "domain", "description"],
+      "optional_fields": ["period", "region", "related_practices"]
+    },
+    {
+      "type_id": "historical_actor",
+      "label": "Historical Actor",
+      "label_zh": "历史人物/群体",
+      "description": "A person, group, community, or institution with cultural or historical significance",
+      "examples": ["屈原", "孔子", "地方社区", "宫廷画师", "女性群体"],
+      "required_fields": ["name", "actor_type", "period"],
+      "optional_fields": ["region", "affiliation", "cultural_role"]
+    },
+    {
+      "type_id": "event_practice",
+      "label": "Event / Practice",
+      "label_zh": "事件/实践",
+      "description": "A ritual, festival, ceremony, social practice, or historical event",
+      "examples": ["端午节", "祭祖", "成人礼", "婚礼", "科举考试"],
+      "required_fields": ["name", "practice_type", "frequency"],
+      "optional_fields": ["origin_period", "region", "participants"]
+    },
+    {
+      "type_id": "spatiotemporal_context",
+      "label": "Spatiotemporal Context",
+      "label_zh": "时空情境",
+      "description": "A historical period, geographic region, or social setting that frames cultural events",
+      "examples": ["明代", "现代校园", "农村社区", "少数民族地区", "战国时期"],
+      "required_fields": ["name", "context_type"],
+      "optional_fields": ["start_year", "end_year", "geographic_scope"]
+    },
+    {
+      "type_id": "value_orientation",
+      "label": "Value Orientation",
+      "label_zh": "价值导向",
+      "description": "A moral, ethical, or social value associated with cultural items",
+      "examples": ["尊重", "和谐", "抗争", "共同体认同", "集体主义", "个人责任"],
+      "required_fields": ["name", "valence"],
+      "optional_fields": ["opposing_value", "cultural_tradition"]
+    }
+  ],
+  "field_types": {
+    "name": "string",
+    "domain": "string",
+    "description": "text",
+    "period": "string",
+    "region": "string",
+    "actor_type": "enum[person, group, institution]",
+    "practice_type": "enum[ritual, festival, ceremony, social_practice, historical_event]",
+    "frequency": "enum[annual, monthly, lifecycle, one_time]",
+    "context_type": "enum[temporal, spatial, social]",
+    "valence": "enum[positive, negative, neutral, contested]"
+  }
+}

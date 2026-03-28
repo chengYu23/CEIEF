@@ -1,0 +1,234 @@
+{
+  "version": "1.0",
+  "description": "CEIEF Task Bank - Cultural Education Interaction Tasks",
+  "total_tasks": 20,
+  "task_families": [
+    "historical_explanation",
+    "event_interpretation",
+    "norm_comparison",
+    "value_conflict_mediation",
+    "contemporary_transfer"
+  ],
+  "tasks": [
+    {
+      "task_id": "T001",
+      "family": "historical_explanation",
+      "difficulty": "medium",
+      "title": "端午节的文化意义",
+      "prompt": "解释为什么端午节不仅是纪念屈原的节日，也具有维系社区记忆和文化认同的作用。",
+      "key_concepts": ["端午节", "屈原", "集体记忆", "文化认同"],
+      "expected_relations": ["commemorates", "embodies", "transfers_to"],
+      "role_profile": "historical_interpreter",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T002",
+      "family": "historical_explanation",
+      "difficulty": "hard",
+      "title": "儒家孝道的历史演变",
+      "prompt": "请解释儒家孝道观念的起源及其在不同历史时期如何演变，并说明其核心内涵。",
+      "key_concepts": ["孝道", "儒家思想", "孔子", "社会等级秩序"],
+      "expected_relations": ["originated_in", "interprets", "reinforces"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T003",
+      "family": "historical_explanation",
+      "difficulty": "easy",
+      "title": "春节的家庭文化意义",
+      "prompt": "请说明春节作为中国最重要的传统节日，如何体现家庭团聚与孝道价值观。",
+      "key_concepts": ["春节", "家庭团聚", "孝道", "年夜饭"],
+      "expected_relations": ["embodies", "reinforces", "associated_with"],
+      "role_profile": "museum_guide",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T004",
+      "family": "historical_explanation",
+      "difficulty": "medium",
+      "title": "清明节祭祖传统的文化根源",
+      "prompt": "分析清明节祭祖习俗的文化根源，并解释其与孝道、祖先崇拜之间的关系。",
+      "key_concepts": ["清明节", "祭祖", "孝道", "祖先崇拜"],
+      "expected_relations": ["reinforces", "embodies", "originated_in"],
+      "role_profile": "historical_interpreter",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T005",
+      "family": "event_interpretation",
+      "difficulty": "medium",
+      "title": "成人礼的仪式象征",
+      "prompt": "说明传统成人礼中的关键仪式行为如何体现社会价值与身份转换。",
+      "key_concepts": ["成人礼", "身份转换", "社会责任", "古代冠礼"],
+      "expected_relations": ["embodies", "originated_in", "transfers_to"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T006",
+      "family": "event_interpretation",
+      "difficulty": "hard",
+      "title": "中秋节的象征体系",
+      "prompt": "分析中秋节中月亮、月饼等核心符号的文化象征意义，及其如何传递思乡情感与团圆价值。",
+      "key_concepts": ["中秋节", "月饼", "嫦娥", "思乡情感", "集体记忆"],
+      "expected_relations": ["embodies", "associated_with", "reinforces"],
+      "role_profile": "museum_guide",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T007",
+      "family": "event_interpretation",
+      "difficulty": "easy",
+      "title": "春节拜年礼仪的意义",
+      "prompt": "解释春节拜年习俗中的礼仪行为如何体现对长辈的尊重和对新年的期望。",
+      "key_concepts": ["拜年", "尊老敬长", "礼仪", "春节"],
+      "expected_relations": ["embodies", "reinforces"],
+      "role_profile": "museum_guide",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T008",
+      "family": "event_interpretation",
+      "difficulty": "medium",
+      "title": "龙舟竞渡的集体精神",
+      "prompt": "分析龙舟竞渡这一民俗活动如何体现中国文化中的集体协作精神与社区认同。",
+      "key_concepts": ["龙舟竞渡", "集体协作精神", "团队精神", "社区认同"],
+      "expected_relations": ["embodies", "reinforces", "associated_with"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "historical_context_matching"]
+    },
+    {
+      "task_id": "T009",
+      "family": "norm_comparison",
+      "difficulty": "medium",
+      "title": "中西问候礼仪比较",
+      "prompt": "比较中国与西方文化中的问候礼仪，并讨论其背后的尊重逻辑有何不同。",
+      "key_concepts": ["问候礼仪", "尊重", "礼仪", "鞠躬礼"],
+      "expected_relations": ["embodies", "contrasts_with", "interprets"],
+      "role_profile": "value_mediator",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T010",
+      "family": "norm_comparison",
+      "difficulty": "hard",
+      "title": "集体主义与个人主义的文化差异",
+      "prompt": "比较中国集体主义文化与西方个人主义文化的核心差异，并分析这种差异在教育场景中的表现。",
+      "key_concepts": ["集体主义", "个人主义", "文化认同", "教育价值观"],
+      "expected_relations": ["contrasts_with", "reinforces", "transfers_to"],
+      "role_profile": "value_mediator",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T011",
+      "family": "norm_comparison",
+      "difficulty": "medium",
+      "title": "儒家礼制与现代法制的比较",
+      "prompt": "比较传统儒家礼制规范与现代法律制度在社会秩序维护方面的异同及其文化背景。",
+      "key_concepts": ["礼仪", "社会规范", "法律制度", "儒家思想"],
+      "expected_relations": ["contrasts_with", "interprets", "reinforces"],
+      "role_profile": "historical_interpreter",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T012",
+      "family": "norm_comparison",
+      "difficulty": "easy",
+      "title": "传统节庆与现代娱乐的对比",
+      "prompt": "比较中国传统节庆活动与现代娱乐节日在文化意义表达方式上的异同。",
+      "key_concepts": ["传统节庆活动", "节庆文化", "文化传承", "现代娱乐节日"],
+      "expected_relations": ["contrasts_with", "embodies", "transfers_to"],
+      "role_profile": "museum_guide",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T013",
+      "family": "value_conflict_mediation",
+      "difficulty": "hard",
+      "title": "传统节庆活动的现代化改造",
+      "prompt": "某学校希望将传统节庆活动进行现代化改造，以吸引更多学生参与。请在不削弱文化意义的前提下提出调和建议。",
+      "key_concepts": ["节庆文化", "形式调整", "仪式僵化", "社区参与"],
+      "expected_relations": ["contrasts_with", "embodies", "transfers_to"],
+      "role_profile": "value_mediator",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T014",
+      "family": "value_conflict_mediation",
+      "difficulty": "hard",
+      "title": "孝道与个人自主的冲突",
+      "prompt": "当传统孝道要求与年轻人追求个人自主发生冲突时，如何在尊重文化传统的同时理解个人选择的合理性？",
+      "key_concepts": ["孝道", "个人主义", "家庭和谐", "代际关系"],
+      "expected_relations": ["contrasts_with", "reinforces", "interprets"],
+      "role_profile": "value_mediator",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T015",
+      "family": "value_conflict_mediation",
+      "difficulty": "medium",
+      "title": "全球化背景下的文化保护",
+      "prompt": "在全球化浪潮下，传统文化价值观面临冲击。如何在接受全球化带来的变化的同时保护文化多样性？",
+      "key_concepts": ["全球化", "文化多样性", "文化认同", "文化传承"],
+      "expected_relations": ["challenges", "reinforces", "transfers_to"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T016",
+      "family": "value_conflict_mediation",
+      "difficulty": "medium",
+      "title": "少数民族文化保护与主流文化融合",
+      "prompt": "少数民族文化保护与主流文化认同之间存在张力，请提出尊重文化差异同时促进社会凝聚的建议。",
+      "key_concepts": ["少数民族文化", "文化多样性", "中华民族共同体意识", "多元一体"],
+      "expected_relations": ["contrasts_with", "reinforces", "embodies"],
+      "role_profile": "value_mediator",
+      "evaluation_focus": ["historical_context_matching", "cultural_label_alignment"]
+    },
+    {
+      "task_id": "T017",
+      "family": "contemporary_transfer",
+      "difficulty": "medium",
+      "title": "孝道在现代家庭中的体现",
+      "prompt": "如何在大学课堂中有意义地讨论孝道这一传统文化价值，使其既保留原有语境，又能与当代学生经验相连接？",
+      "key_concepts": ["孝道", "现代家庭伦理", "代际关系", "文化教育"],
+      "expected_relations": ["transfers_to", "reinforces", "interprets"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T018",
+      "family": "contemporary_transfer",
+      "difficulty": "easy",
+      "title": "传统节庆的当代意义",
+      "prompt": "请说明传统节庆在当代社会中如何维系文化认同，并举例说明其在现代学校教育中的应用。",
+      "key_concepts": ["节庆文化", "文化认同", "学校教育", "文化传承"],
+      "expected_relations": ["reinforces", "transfers_to", "embodies"],
+      "role_profile": "museum_guide",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    },
+    {
+      "task_id": "T019",
+      "family": "contemporary_transfer",
+      "difficulty": "hard",
+      "title": "工匠精神的当代传承",
+      "prompt": "传统工匠精神如何在当代职业教育和企业文化中得到传承和转化？请结合具体案例分析。",
+      "key_concepts": ["工匠精神", "精益求精", "现代职业精神", "文化传承"],
+      "expected_relations": ["transfers_to", "reinforces", "embodies"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "historical_context_matching"]
+    },
+    {
+      "task_id": "T020",
+      "family": "contemporary_transfer",
+      "difficulty": "medium",
+      "title": "集体记忆与数字时代",
+      "prompt": "在数字化时代，传统集体记忆的载体（如实体节庆、口述传统）如何转化为新的数字文化形式？",
+      "key_concepts": ["集体记忆", "口述传统", "文化传承", "数字红包文化"],
+      "expected_relations": ["transfers_to", "reinforces", "contrasts_with"],
+      "role_profile": "cultural_teacher",
+      "evaluation_focus": ["cultural_label_alignment", "language_style_modal_alignment"]
+    }
+  ]
+}

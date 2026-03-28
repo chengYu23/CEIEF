@@ -1,0 +1,138 @@
+# CEIEF Project Configuration
+# Cultural Education Interaction Enhancement Framework
+#
+# Copy this file and fill in your actual values:
+#   cp config.yaml config.local.yaml
+# Then set environment variable: CEIEF_CONFIG=config.local.yaml
+# OR copy .env.example to .env and fill in secrets.
+
+# ============================================================
+# LLM Configuration
+# ============================================================
+llm:
+  provider: anthropic
+  api_key: "${ANTHROPIC_API_KEY}"      # Set via environment variable
+  base_url: "${ANTHROPIC_BASE_URL}"    # e.g. https://api.anthropic.com
+  model: "claude-sonnet-4-6"           # or claude-3-5-sonnet-20241022
+  max_tokens: 2048
+  temperature: 0.7
+  top_p: 0.9
+  timeout: 60
+  retry_attempts: 3
+  retry_delay: 2
+
+# ============================================================
+# Neo4j Knowledge Graph Configuration
+# ============================================================
+neo4j:
+  uri: "${NEO4J_URI}"                  # e.g. bolt://localhost:7687
+  user: "${NEO4J_USER}"               # e.g. neo4j
+  password: "${NEO4J_PASSWORD}"        # Set via environment variable
+  database: "neo4j"
+  max_connection_pool_size: 50
+  connection_timeout: 30
+
+# ============================================================
+# Knowledge Graph Retrieval Settings
+# ============================================================
+kg_retrieval:
+  max_triples_per_query: 10
+  similarity_threshold: 0.6
+  max_hop_depth: 2
+  embedding_model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  use_semantic_search: true
+  fallback_to_keyword: true
+
+# ============================================================
+# Agent Controller Settings
+# ============================================================
+agent:
+  policy: "rule_based"   # options: rule_based, ml_based, hybrid
+  action_selection: "deterministic"  # options: deterministic, stochastic
+  state_window_size: 5
+  confusion_threshold: 0.4
+  exploration_rate: 0.1
+  actions:
+    - evidence_expansion
+    - role_anchoring
+    - perspective_contrast
+    - reflective_prompting
+    - clarification
+    - simplification
+    - summary_closure
+
+# ============================================================
+# Dialogue Settings
+# ============================================================
+dialogue:
+  max_turns: 20
+  session_timeout: 3600
+  memory_window: 10
+  language: "zh"
+  role_profiles:
+    - museum_guide
+    - cultural_teacher
+    - historical_interpreter
+    - value_mediator
+
+# ============================================================
+# Experiment Settings
+# ============================================================
+experiment:
+  conditions:
+    - llm_only
+    - kg_llm
+    - llm_agent
+    - full_ceief
+  repetitions_per_condition: 20
+  task_families:
+    - historical_explanation
+    - event_interpretation
+    - norm_comparison
+    - value_conflict_mediation
+    - contemporary_transfer
+  random_seed: 42
+  output_dir: "logs/"
+
+# ============================================================
+# Evaluation Settings
+# ============================================================
+evaluation:
+  auto_metrics:
+    - cultural_semantic_coherence
+    - kg_coverage_ratio
+    - response_depth_score
+    - action_diversity_index
+  human_metrics:
+    - historical_context_matching
+    - cultural_label_alignment
+    - language_style_modal_alignment
+  pre_annotation: true
+  inter_rater_reliability: true
+
+# ============================================================
+# Logging Settings
+# ============================================================
+logging:
+  level: "INFO"
+  log_dir: "logs/"
+  dialogue_log: "logs/raw_dialogues/"
+  action_log: "logs/controller_actions/"
+  retrieval_log: "logs/retrieval_logs/"
+  scoring_log: "logs/scoring_outputs/"
+  format: "json"
+  rotate_size: "100MB"
+
+# ============================================================
+# Paths
+# ============================================================
+paths:
+  data_dir: "data/"
+  kg_triples: "data/kg/cultural_triples.csv"
+  subgraph_examples: "data/kg/subgraph_examples.json"
+  entity_schema: "data/ontology/entity_schema.json"
+  relation_schema: "data/ontology/relation_schema.json"
+  task_bank: "data/tasks/task_bank.json"
+  prompts_dir: "prompts/"
+  agent_config: "agent/controller_config.yaml"
+  action_space: "agent/action_space.json"

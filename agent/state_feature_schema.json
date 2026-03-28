@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "description": "CEIEF Agent State Feature Schema - s_t = [g_t; u_t; m_t; b_t]",
+  "state_components": {
+    "g_t": {
+      "name": "graph_context",
+      "description": "Current retrieved KG context - list of evidence triple strings",
+      "type": "array",
+      "item_type": "string",
+      "example": ["(端午节, commemorates, 屈原)", "(端午节, embodies, 集体记忆)"]
+    },
+    "u_t": {
+      "name": "user_context",
+      "description": "Learner current input and derived features",
+      "fields": {
+        "current_query": {"type": "string", "description": "Raw learner input text"},
+        "intent_type": {
+          "type": "enum",
+          "values": [
+            "factual_question",
+            "explanatory_question",
+            "comparison_request",
+            "clarification_request",
+            "reflection",
+            "challenge",
+            "agreement",
+            "off_topic",
+            "transfer_request"
+          ]
+        },
+        "confusion_level": {
+          "type": "enum",
+          "values": ["low", "medium", "high"]
+        },
+        "detected_entities": {
+          "type": "array",
+          "item_type": "string",
+          "description": "Cultural entities detected in learner input"
+        }
+      }
+    },
+    "m_t": {
+      "name": "dialogue_memory",
+      "description": "Recent dialogue history and accumulated knowledge",
+      "fields": {
+        "recent_turns": {
+          "type": "array",
+          "description": "Last N dialogue turns [{role, content}]",
+          "max_length": 10
+        },
+        "mentioned_entities": {
+          "type": "array",
+          "item_type": "string",
+          "description": "All cultural entities mentioned across dialogue"
+        },
+        "previous_actions": {
+          "type": "array",
+          "item_type": "string",
+          "description": "Action history in current session"
+        }
+      }
+    },
+    "b_t": {
+      "name": "behavior_features",
+      "description": "Learner behavior feature vector",
+      "fields": {
+        "dialogue_depth": {
+          "type": "integer",
+          "symbol": "d_t",
+          "description": "Current dialogue turn count"
+        },
+        "clarification_count": {
+          "type": "integer",
+          "symbol": "q_t",
+          "description": "Cumulative clarification request count"
+        },
+        "evidence_request_count": {
+          "type": "integer",
+          "symbol": "e_t",
+          "description": "Cumulative evidence/why question count"
+        },
+        "perspective_switch_count": {
+          "type": "integer",
+          "symbol": "v_t",
+          "description": "Cumulative perspective/comparison request count"
+        },
+        "rephrase_count": {
+          "type": "integer",
+          "symbol": "r_t",
+          "description": "Cumulative rephrasing/reformulation count"
+        },
+        "question_count": {
+          "type": "integer",
+          "description": "Total questions asked by learner"
+        },
+        "short_input_count": {
+          "type": "integer",
+          "description": "Count of inputs shorter than 20 characters"
+        },
+        "keyword_repetition_count": {
+          "type": "integer",
+          "description": "Count of repeated keywords across turns"
+        }
+      }
+    }
+  },
+  "meta_fields": {
+    "session_id": {"type": "string"},
+    "task_family": {"type": "string"},
+    "role_profile": {"type": "string"},
+    "condition": {"type": "string"}
+  }
+}

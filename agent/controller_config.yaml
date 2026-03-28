@@ -1,0 +1,90 @@
+# CEIEF Agent Controller Configuration
+
+agent:
+  name: "CEIEF Agent Controller"
+  version: "1.0"
+  policy: "rule_based"  # rule_based | ml_based | hybrid
+  action_selection: "deterministic"  # deterministic | stochastic
+
+  # State tracking parameters
+  state:
+    window_size: 5          # turns to consider for state computation
+    memory_window: 10       # turns to keep in active memory
+    confusion_threshold: 0.4
+
+  # Exploration (for stochastic policy)
+  exploration:
+    epsilon: 0.1            # random action probability
+    decay_rate: 0.99        # epsilon decay per session
+    min_epsilon: 0.01
+
+  # Action selection rules (priority order)
+  rules:
+    - name: "high_confusion_clarification"
+      priority: 10
+      conditions:
+        confusion_level: "high"
+        intent_type: "clarification_request"
+      actions: ["clarification", "simplification"]
+
+    - name: "high_confusion_simplify"
+      priority: 9
+      conditions:
+        confusion_level: "high"
+      actions: ["simplification", "clarification"]
+
+    - name: "explanatory_question_evidence"
+      priority: 8
+      conditions:
+        intent_type: "explanatory_question"
+      actions: ["evidence_expansion", "role_anchoring"]
+
+    - name: "comparison_request_contrast"
+      priority: 8
+      conditions:
+        intent_type: "comparison_request"
+      actions: ["perspective_contrast", "evidence_expansion"]
+
+    - name: "reflection_prompting"
+      priority: 7
+      conditions:
+        intent_type: "reflection"
+      actions: ["reflective_prompting", "perspective_contrast"]
+
+    - name: "transfer_request_contrast"
+      priority: 7
+      conditions:
+        intent_type: "transfer_request"
+      actions: ["perspective_contrast", "reflective_prompting"]
+
+    - name: "deep_dialogue_summary"
+      priority: 6
+      conditions:
+        min_dialogue_depth: 10
+      actions: ["summary_closure"]
+
+    - name: "default_evidence"
+      priority: 1
+      conditions: {}
+      actions: ["evidence_expansion"]
+
+  # Multi-action complement mapping
+  complement_actions:
+    evidence_expansion: "reflective_prompting"
+    clarification: "evidence_expansion"
+    perspective_contrast: "reflective_prompting"
+    reflective_prompting: "perspective_contrast"
+    simplification: "clarification"
+    role_anchoring: "evidence_expansion"
+    summary_closure: "reflective_prompting"
+
+  # Action diversity settings
+  diversity:
+    avoid_repeat_window: 2  # avoid repeating last N actions
+    max_same_action_ratio: 0.5  # max proportion of same action in session
+
+  # Logging
+  logging:
+    log_actions: true
+    log_state_snapshots: true
+    log_rule_matches: true
