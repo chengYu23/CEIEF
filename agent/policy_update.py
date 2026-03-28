@@ -22,7 +22,7 @@ from loguru import logger
 # 全局常量
 # ============================================================
 
-# 奖励权重（对应论文 reward_design 配置；合计 = 1.0）
+# 奖励权重
 REWARD_WEIGHTS: Dict[str, float] = {
     "semantic_grounding":          0.35,
     "contextual_coherence":        0.25,
@@ -187,7 +187,7 @@ class REINFORCEPolicyUpdater:
     """
     基于 episode 级 REINFORCE 的策略梯度更新器。
 
-    规格（论文 policy_module 配置节）：
+    规格：
       - 状态维度  : state_dim = 15
       - 动作空间  : n_actions = 7（softmax 分布）
       - 更新规则  : episode-level REINFORCE（Monte-Carlo 回报，无自举）
@@ -219,7 +219,6 @@ class REINFORCEPolicyUpdater:
 
         Args:
             config: 来自 agent/controller_config.yaml 的 ml_policy 节（可选）。
-                    若为 None 则使用论文默认值。
             checkpoint_dir: 策略参数检查点保存目录。
         """
         cfg = config or {}
@@ -262,7 +261,7 @@ class REINFORCEPolicyUpdater:
         role_style_fidelity:         float,
     ) -> float:
         """
-        计算加权复合奖励（对应论文 reward_design 配置）。
+        计算加权复合奖励。
 
         权重：
           semantic_grounding          = 0.35
