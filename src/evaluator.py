@@ -27,7 +27,7 @@ from loguru import logger
 @dataclass
 class HumanRatingConfig:
     """
-    人工评分协议配置（论文 human_rating 配置节）。
+    人工评分协议配置。
 
     规格：
       - 评分员数量    : 2 名经过训练的评分员
