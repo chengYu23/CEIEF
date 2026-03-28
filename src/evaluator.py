@@ -20,6 +20,86 @@ from pathlib import Path
 from loguru import logger
 
 
+# ============================================================
+# Human Rating Configuration
+# ============================================================
+
+@dataclass
+class HumanRatingConfig:
+    """
+    人工评分协议配置（论文 human_rating 配置节）。
+
+    规格：
+      - 评分员数量    : 2 名经过训练的评分员
+      - 校准程序      : 在正式评分前对 20% 的材料进行评分规则校准
+      - 仲裁规则      : 当两位主评分员的分数差超过 1 分时，
+                        由第三位评分员进行仲裁，以解决分歧
+      - 评分量表      : 1–5 分
+      - 评分维度      : historical_context_matching、cultural_label_alignment、
+                        language_style_modal_alignment
+    """
+    # 主评分员数量
+    n_raters: int = 2
+
+    # 正式评分前的校准材料比例（20%）
+    calibration_proportion: float = 0.20
+    calibration_description: str = (
+        "Rubric calibration on 20% of items before formal scoring begins"
+    )
+
+    # 仲裁触发阈值：两位评分员分数差 > arbitration_threshold 时启动仲裁
+    arbitration_threshold: int = 1
+    arbitration_rule: str = "third_rater"   # 第三位评分员仲裁
+
+    # 评分量表范围
+    rating_scale_min: int = 1
+    rating_scale_max: int = 5
+
+    # 评分维度列表
+    dimensions: List[str] = field(default_factory=lambda: [
+        "historical_context_matching",
+        "cultural_label_alignment",
+        "language_style_modal_alignment",
+    ])
+
+    def validate_score(self, score: float) -> bool:
+        """检验分数是否在合法量表范围内。"""
+        return self.rating_scale_min <= score <= self.rating_scale_max
+
+    def needs_arbitration(self, score_a: float, score_b: float) -> bool:
+        """
+        判断两位评分员的分数差是否超过仲裁阈值。
+
+        Args:
+            score_a: 评分员 A 的分数。
+            score_b: 评分员 B 的分数。
+
+        Returns:
+            True 表示需要第三位评分员仲裁。
+        """
+        return abs(score_a - score_b) > self.arbitration_threshold
+
+    def calibration_item_count(self, total_items: int) -> int:
+        """根据总条目数计算校准阶段需覆盖的条目数。"""
+        return max(1, round(total_items * self.calibration_proportion))
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "n_raters":                self.n_raters,
+            "calibration_proportion":  self.calibration_proportion,
+            "calibration_description": self.calibration_description,
+            "arbitration_threshold":   self.arbitration_threshold,
+            "arbitration_rule":        self.arbitration_rule,
+            "rating_scale":            {"min": self.rating_scale_min,
+                                         "max": self.rating_scale_max},
+            "dimensions":              self.dimensions,
+        }
+
+
+# 模块级默认实例，供其他模块直接 import 使用
+DEFAULT_HUMAN_RATING_CONFIG = HumanRatingConfig()
+
+
 @dataclass
 class TurnMetrics:
     """单轮评估指标"""

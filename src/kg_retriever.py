@@ -87,10 +87,31 @@ class KGRetriever:
         self.neo4j_config = config.get("neo4j", {})
         self.paths = config.get("paths", {})
 
-        self.max_triples = self.kg_config.get("max_triples_per_query", 10)
-        self.similarity_threshold = self.kg_config.get("similarity_threshold", 0.6)
-        self.max_hop_depth = self.kg_config.get("max_hop_depth", 2)
-        self.use_semantic = self.kg_config.get("use_semantic_search", False)
+        # TopK：每次检索返回的最大三元组数（论文设定 TopK = 10）
+        self.top_k: int = int(self.kg_config.get("top_k", 10))
+        self.max_triples: int = int(self.kg_config.get("max_triples_per_query", self.top_k))
+
+        # 相似度度量：论文使用余弦相似度（cosine similarity）
+        self.similarity_metric: str = str(self.kg_config.get("similarity_metric", "cosine"))
+
+        # 相似度阈值：同时作为 second-hop 扩展触发边界（论文 = 0.60）
+        # Second-hop 扩展规则：
+        #   触发条件 1 — 一跳结果的均值相似度 < second_hop_threshold
+        #   触发条件 2 — 存在未解析的必要上下文槽位（required context slot unresolved）
+        self.similarity_threshold: float = float(
+            self.kg_config.get("similarity_threshold", 0.60)
+        )
+        self.second_hop_threshold: float = float(
+            self.kg_config.get("second_hop_threshold", self.similarity_threshold)
+        )
+        self.max_hop_depth: int = int(self.kg_config.get("max_hop_depth", 2))
+        self.use_semantic: bool = bool(self.kg_config.get("use_semantic_search", False))
+
+        # 句子编码器标识（用于日志与远程服务选择）
+        # 论文设定：BAAI/bge-m3（多语言密集检索编码器）
+        self.embedding_model_name: str = str(
+            self.kg_config.get("embedding_model", "BAAI/bge-m3")
+        )
 
         # 本地三元组存储（CSV备用模式）
         self._triples: List[Triple] = []

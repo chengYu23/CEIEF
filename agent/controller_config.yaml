@@ -1,4 +1,16 @@
 # CEIEF Agent Controller Configuration
+# ============================================================
+# Sentence Encoder
+# ============================================================
+sentence_encoder:
+  # Encoder used for query–triple similarity and semantic retrieval
+  # Paper setting: BAAI/bge-m3 (multilingual dense retrieval encoder)
+  model_name: "BAAI/bge-m3"
+  model_type: "dense_retrieval"
+  normalize_embeddings: true
+  batch_size: 32
+  device: "cpu"                  # set to "cuda" if GPU is available
+  cache_dir: ".cache/encoders"
 
 agent:
   name: "CEIEF Agent Controller"
@@ -88,3 +100,58 @@ agent:
     log_actions: true
     log_state_snapshots: true
     log_rule_matches: true
+
+# ============================================================
+# ML Policy Module (REINFORCE)
+# ============================================================
+# Active when agent.policy = "ml_based" or "hybrid"
+ml_policy:
+  # 15-dimensional state feature vector
+  # Features are defined in agent/state_feature_schema.json
+  state_dim: 15
+  # Softmax policy over the 7 controller actions
+  n_actions: 7
+  action_labels:
+    - evidence_expansion
+    - role_anchoring
+    - perspective_contrast
+    - reflective_prompting
+    - clarification
+    - simplification
+    - summary_closure
+  policy_form: "softmax"            # softmax over linear logits
+  # Episode-level REINFORCE-style policy gradient update
+  update_rule: "REINFORCE"          # Monte-Carlo policy gradient
+  learning_rate: 1.0e-3             # lr = 1e-3
+  discount_factor: 0.99             # γ for episode return
+  baseline: "running_mean"          # subtract mean return as baseline
+  normalize_returns: true
+  checkpoint_dir: "logs/policy_checkpoints/"
+
+# ============================================================
+# Reward Design
+# ============================================================
+reward_design:
+  # Weighted composite reward — weights must sum to 1.0
+  semantic_grounding:
+    weight: 0.35
+    description: "Grounding in retrieved KG evidence"
+  contextual_coherence:
+    weight: 0.25
+    description: "Coherence with preceding dialogue context"
+  pedagogical_appropriateness:
+    weight: 0.25
+    description: "Alignment with culturally appropriate pedagogy"
+  role_style_fidelity:
+    weight: 0.15
+    description: "Consistency with assigned role and language register"
+
+# ============================================================
+# Human Rating Protocol
+# ============================================================
+human_rating:
+  n_raters: 2
+  calibration_proportion: 0.20      # calibrate on 20% before formal scoring
+  arbitration_threshold: 1          # third-rater arbitration if |score_A - score_B| > 1
+  arbitration_rule: "third_rater"
+  rating_scale: {min: 1, max: 5}

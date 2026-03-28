@@ -36,10 +36,19 @@ neo4j:
 # Knowledge Graph Retrieval Settings
 # ============================================================
 kg_retrieval:
+  # TopK triples returned per retrieval query
+  top_k: 10
   max_triples_per_query: 10
-  similarity_threshold: 0.6
+  # Cosine similarity threshold — also used as second-hop trigger boundary
+  similarity_metric: "cosine"
+  similarity_threshold: 0.60
+  # Hop depth: default 1-hop; second-hop expansion fires when
+  # mean similarity < second_hop_threshold OR a required context slot is unresolved
   max_hop_depth: 2
-  embedding_model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  second_hop_threshold: 0.60        # triggers two-hop expansion
+  # Sentence encoder for query–triple semantic retrieval
+  # Paper setting: BAAI/bge-m3 (multilingual dense retrieval encoder)
+  embedding_model: "BAAI/bge-m3"
   use_semantic_search: true
   fallback_to_keyword: true
 
@@ -93,6 +102,57 @@ experiment:
     - contemporary_transfer
   random_seed: 42
   output_dir: "logs/"
+  # tasks_per_family × task_families = total tasks
+  tasks_per_family: 4               # 4 tasks per task family
+  total_tasks: 20                   # 5 families × 4 tasks
+
+# ============================================================
+# Run Policy (Experiment Execution Settings)
+# ============================================================
+run_policy:
+  n_runs_per_condition: 20          # independent runs per experimental condition
+  random_seed: 42                   # fixed seed for reproducibility
+  batch_size: 1                     # one dialogue episode per batch
+  conditions:
+    - llm_only
+    - kg_llm
+    - llm_agent
+    - full_ceief
+
+# ============================================================
+# Policy Module (RL Agent Policy Configuration)
+# ============================================================
+policy_module:
+  # 15-dimensional state feature vector (see agent/state_feature_schema.json)
+  state_dim: 15
+  # Softmax policy over the 7 controller actions
+  n_actions: 7
+  policy_form: "softmax"            # softmax distribution over action logits
+  # Episode-level REINFORCE-style gradient update
+  update_rule: "REINFORCE"          # policy gradient; episode-level return
+  learning_rate: 1.0e-3             # lr = 1e-3
+  discount_factor: 0.99             # γ for discounted return
+  baseline: "running_mean"          # variance-reduction baseline
+
+# ============================================================
+# Reward Design
+# ============================================================
+reward_design:
+  # Weighted composite reward signal
+  # Total weight must sum to 1.0
+  components:
+    semantic_grounding:
+      weight: 0.35
+      description: "Degree to which the response is grounded in retrieved KG evidence"
+    contextual_coherence:
+      weight: 0.25
+      description: "Coherence of the response with the preceding dialogue context"
+    pedagogical_appropriateness:
+      weight: 0.25
+      description: "Alignment with culturally appropriate pedagogical strategies"
+    role_style_fidelity:
+      weight: 0.15
+      description: "Consistency with the assigned cultural role and language register"
 
 # ============================================================
 # Evaluation Settings
@@ -109,6 +169,25 @@ evaluation:
     - language_style_modal_alignment
   pre_annotation: true
   inter_rater_reliability: true
+
+# ============================================================
+# Human Rating Protocol
+# ============================================================
+human_rating:
+  n_raters: 2                       # two trained human raters
+  # Raters calibrate on 20 % of the material before formal scoring begins
+  calibration_proportion: 0.20
+  calibration_description: "Rubric calibration on 20% of items before formal scoring"
+  # A third rater arbitrates when two primary raters differ by more than 1 point
+  arbitration_threshold: 1          # score difference > 1 triggers third-rater arbitration
+  arbitration_rule: "third_rater"   # resolution method
+  rating_scale:
+    min: 1
+    max: 5
+  dimensions:
+    - historical_context_matching
+    - cultural_label_alignment
+    - language_style_modal_alignment
 
 # ============================================================
 # Logging Settings
